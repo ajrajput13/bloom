@@ -882,8 +882,10 @@ async function initFirebase() {
         const data = snap.data();
         if (data.periods) state.periods = data.periods;
         if (data.dailyLogs) state.dailyLogs = data.dailyLogs;
-        // sweetNote always comes from source code, never from db
-        state.sweetNote = DEFAULT_NOTE;
+        // Sweet note: use synced value if present, otherwise keep DEFAULT_NOTE
+        if (typeof data.sweetNote === 'string' && data.sweetNote.length > 0) {
+          state.sweetNote = data.sweetNote;
+        }
         renderAll();
         refreshOpenModal(); // if a day's modal is open, refresh its content too
         if (!isInitialLoad) {
