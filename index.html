@@ -833,8 +833,8 @@ function loadState() {
     if (saved) {
       const parsed = JSON.parse(saved);
       state = { ...state, ...parsed };
-      if (!state.sweetNote) state.sweetNote = DEFAULT_NOTE;
     }
+    state.sweetNote = DEFAULT_NOTE; // always use the source-code version
   } catch(e) { console.error('Load error:', e); }
 }
 
